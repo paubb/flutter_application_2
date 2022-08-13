@@ -19,7 +19,8 @@ class _RootPageState extends State<RootPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 1,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         title: Text(
           "Home",
           style: TextStyle(fontWeight: FontWeight.bold),
