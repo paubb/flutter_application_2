@@ -14,7 +14,14 @@ class MyApp extends StatelessWidget {
     );
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData.light(),
+      // Custom Light Theme to assing app bar title to black
+      theme: ThemeData(
+        appBarTheme: AppBarTheme(
+          // To change status bar color, working for light theme mode
+          systemOverlayStyle: SystemUiOverlayStyle.dark,
+          titleTextStyle: TextStyle(color: Colors.black87, fontSize: 20),
+        ),
+      ),
       darkTheme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
       home: LaunchPage(),
