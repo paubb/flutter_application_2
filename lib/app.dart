@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_2/views/root.dart';
+import 'package:flutter_application_2/views/launch.dart';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
-      home: RootPage(),
+      home: LaunchPage(),
     );
   }
 }
