@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_2/views/launch.dart';
+import 'package:flutter_application_2/models/routing.dart';
+import 'package:flutter_application_2/config/constants.dart';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
       ),
       darkTheme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
-      home: LaunchPage(),
+      onGenerateRoute: Routing.generateRoute,
+      initialRoute: launchRoute,
     );
   }
 }
