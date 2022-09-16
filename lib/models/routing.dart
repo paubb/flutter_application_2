@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/config/constants.dart';
 import 'package:flutter_application_2/views/launch.dart';
 import 'package:flutter_application_2/views/root.dart';
+import 'package:flutter_application_2/views/signin.dart';
+import 'package:flutter_application_2/views/signup.dart';
 
 class Routing {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -10,6 +12,10 @@ class Routing {
         return MaterialPageRoute(builder: (_) => LaunchPage());
       case homeRoute:
         return MaterialPageRoute(builder: (_) => RootPage());
+      case signupRoute:
+        return MaterialPageRoute(builder: (_) => SignupPage());
+      case signinRoute:
+        return MaterialPageRoute(builder: (_) => SigninPage());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

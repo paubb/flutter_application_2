@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/models/Firebase/fire_auth.dart';
+import 'package:flutter_application_2/config/constants.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -47,13 +47,7 @@ class _LoginPageState extends State<LoginPage> {
                               Expanded(
                                 child: ElevatedButton(
                                   onPressed: () async {
-                                    setState(() {
-                                      isLoading = true;
-                                    });
-                                    await FireAuth.registerUsingEmailPassword(
-                                        "pauas",
-                                        "pballber@hotmail.com",
-                                        "123456789");
+                                    Navigator.pushNamed(context, signupRoute);
                                   },
                                   child: Text('Sign up'),
                                   style: ElevatedButton.styleFrom(
@@ -69,11 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                               Expanded(
                                 child: ElevatedButton(
                                   onPressed: () async {
-                                    setState(() {
-                                      isLoading = true;
-                                    });
-                                    await FireAuth.signInUsingEmailPassword(
-                                        "pballber@hotmail.com", "123456789");
+                                    Navigator.pushNamed(context, signinRoute);
                                   },
                                   child: Text('Sign in'),
                                   style: ElevatedButton.styleFrom(

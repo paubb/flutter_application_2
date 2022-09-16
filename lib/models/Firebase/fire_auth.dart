@@ -14,50 +14,80 @@ class FireAuth {
     return _auth.userChanges();
   }
 
-  static Future<User> registerUsingEmailPassword(
+  static Future<String> registerUsingEmailPassword(
       String name, String email, String password) async {
-    User user;
+    String status = 'Undefined Error';
     try {
       final userCredential = await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-      user = userCredential.user;
+      User user = userCredential.user;
       await user.updateDisplayName(name);
       await user.reload();
-      user = _auth.currentUser;
+      status = 'Success';
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
-      }
+      if (e.code == 'email-already-in-use') {
+        status = 'The account already exists for that email.';
+      } else if (e.code == 'invalid-email') {
+        status = 'Invalid email provided.';
+      } else if (e.code == 'operation-not-allowed') {
+        status = 'Email/password accounts are not enabled.';
+      } else if (e.code == 'weak-password') {
+        status = 'The password provided is too weak.';
+      } else
+        status = 'An error occured. Please try again later.';
     } catch (e) {
-      print(e);
+      status = e;
     }
-    return user;
+    return status;
   }
 
-  static Future<User> signInUsingEmailPassword(
+  static Future<String> signInUsingEmailPassword(
       String email, String password) async {
-    User user;
+    String status;
     try {
-      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+      await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      user = userCredential.user;
+      status = 'Success';
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided.');
-      }
+      if (e.code == 'wrong-password') {
+        status = 'Wrong password provided.';
+      } else if (e.code == 'invalid-email') {
+        status = 'Invalid email provided.';
+      } else if (e.code == 'user-disabled') {
+        status = 'User corresponding to the given email has been disabled.';
+      } else if (e.code == 'user-not-found') {
+        status = 'No user found for that email.';
+      } else
+        status = 'An error occured. Please try again later.';
+    } catch (e) {
+      status = e;
     }
-    return user;
+    return status;
   }
 
   static Future signOut() async {
     await _auth.signOut();
+  }
+
+  static Future<String> resetPassword(String email) async {
+    String status;
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      status = 'Success, an email has been sent.';
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'invalid-email') {
+        status = 'Invalid email provided.';
+      } else if (e.code == 'user-not-found') {
+        status = 'No user found for that email.';
+      } else
+        status = 'An error occured. Please try again later.';
+    } catch (e) {
+      status = e;
+    }
+    return status;
   }
 }
