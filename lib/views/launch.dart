@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/views/login.dart';
+import 'package:flutter_application_2/views/welcome.dart';
 import 'package:flutter_application_2/views/root.dart';
 
 import '../models/Firebase/fire_auth.dart';
@@ -56,7 +56,7 @@ class _LaunchPageState extends State<LaunchPage> {
         } else if (snapshot.hasData && (!snapshot.data.isAnonymous)) {
           return RootPage();
         }
-        return LoginPage();
+        return WelcomePage();
       },
     );
   }

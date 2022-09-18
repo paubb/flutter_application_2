@@ -37,6 +37,7 @@ class FireAuth {
         status = 'The password provided is too weak.';
       } else
         status = 'An error occured. Please try again later.';
+      //status = e.code;
     } catch (e) {
       status = 'Unknown error.';
     }
@@ -63,6 +64,7 @@ class FireAuth {
         status = 'No user found for that email.';
       } else
         status = 'An error occured. Please try again later.';
+      //status = e.code;
     } catch (e) {
       status = 'Unknown error.';
     }
@@ -85,6 +87,7 @@ class FireAuth {
         status = 'No user found for that email.';
       } else
         status = 'An error occured. Please try again later.';
+      //status = e.code;
     } catch (e) {
       status = 'Unknown error.';
     }
