@@ -16,7 +16,7 @@ class FireAuth {
 
   static Future<String> registerUsingEmailPassword(
       String name, String email, String password) async {
-    String status = 'Undefined Error';
+    String status = 'Undefined Error.';
     try {
       final userCredential = await _auth.createUserWithEmailAndPassword(
         email: email,
@@ -38,14 +38,14 @@ class FireAuth {
       } else
         status = 'An error occured. Please try again later.';
     } catch (e) {
-      status = e;
+      status = 'Unknown error.';
     }
     return status;
   }
 
   static Future<String> signInUsingEmailPassword(
       String email, String password) async {
-    String status;
+    String status = 'Undefined Error.';
     try {
       await _auth.signInWithEmailAndPassword(
         email: email,
@@ -64,7 +64,7 @@ class FireAuth {
       } else
         status = 'An error occured. Please try again later.';
     } catch (e) {
-      status = e;
+      status = 'Unknown error.';
     }
     return status;
   }
@@ -74,7 +74,7 @@ class FireAuth {
   }
 
   static Future<String> resetPassword(String email) async {
-    String status;
+    String status = 'Undefined Error.';
     try {
       await _auth.sendPasswordResetEmail(email: email);
       status = 'Success, an email has been sent.';
@@ -86,7 +86,7 @@ class FireAuth {
       } else
         status = 'An error occured. Please try again later.';
     } catch (e) {
-      status = e;
+      status = 'Unknown error.';
     }
     return status;
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/config/constants.dart';
 import 'package:flutter_application_2/models/Firebase/fire_auth.dart';
 
 class SignupPage extends StatefulWidget {
@@ -13,6 +14,7 @@ class _SignupPageState extends State<SignupPage> {
   final _email = TextEditingController();
   final _password = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  bool _isObscure = true;
   String _status;
 
   @override
@@ -93,12 +95,27 @@ class _SignupPageState extends State<SignupPage> {
                               SizedBox(height: 25),
                               TextFormField(
                                 textInputAction: TextInputAction.done,
-                                obscureText: true,
+                                obscureText: _isObscure,
                                 controller: _password,
                                 decoration: InputDecoration(
                                   hintText: "Password",
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  suffixIcon: Padding(
+                                    padding: EdgeInsets.only(right: 10),
+                                    child: IconButton(
+                                      icon: Icon(_isObscure
+                                          ? Icons.visibility_off
+                                          : Icons.visibility),
+                                      onPressed: () {
+                                        setState(
+                                          () {
+                                            _isObscure = !_isObscure;
+                                          },
+                                        );
+                                      },
+                                    ),
                                   ),
                                 ),
                                 validator: (value) {
@@ -116,25 +133,26 @@ class _SignupPageState extends State<SignupPage> {
                               SizedBox(height: 25),
                               ElevatedButton(
                                 onPressed: () async {
-                                  showDialog(
-                                    context: context,
-                                    barrierDismissible: false,
-                                    builder: (context) => Center(
-                                        child: CircularProgressIndicator()),
-                                  );
-
-                                  String status =
-                                      await FireAuth.registerUsingEmailPassword(
-                                          _username.text,
-                                          _email.text,
-                                          _password.text);
-                                  // Pop loading Dialog
-                                  Navigator.pop(context);
-                                  if (status == 'Success') {
-                                    // Pop Signup Page
+                                  if (_formKey.currentState.validate()) {
+                                    showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (context) => Center(
+                                          child: CircularProgressIndicator()),
+                                    );
+                                    String status = await FireAuth
+                                        .registerUsingEmailPassword(
+                                            _username.text.trim(),
+                                            _email.text.trim(),
+                                            _password.text);
+                                    // Pop loading Dialog
                                     Navigator.pop(context);
-                                  } else {
-                                    _status = status;
+                                    if (status == 'Success') {
+                                      // Pop Signup Page
+                                      Navigator.pop(context);
+                                    } else {
+                                      _status = status;
+                                    }
                                   }
                                 },
                                 child: Text('Sign up'),
@@ -146,6 +164,25 @@ class _SignupPageState extends State<SignupPage> {
                                   padding: const EdgeInsets.all(15),
                                   minimumSize: const Size.fromHeight(55),
                                 ),
+                              ),
+                              SizedBox(height: 25),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('Already have an account?'),
+                                  TextButton(
+                                    onPressed: () async {
+                                      Navigator.pushReplacementNamed(
+                                          context, signinRoute);
+                                    },
+                                    child: Text(
+                                      "Sign in",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),

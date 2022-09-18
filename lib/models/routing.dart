@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/config/constants.dart';
 import 'package:flutter_application_2/views/launch.dart';
+import 'package:flutter_application_2/views/recover_pass.dart';
 import 'package:flutter_application_2/views/root.dart';
 import 'package:flutter_application_2/views/signin.dart';
 import 'package:flutter_application_2/views/signup.dart';
@@ -16,6 +17,8 @@ class Routing {
         return MaterialPageRoute(builder: (_) => SignupPage());
       case signinRoute:
         return MaterialPageRoute(builder: (_) => SigninPage());
+      case recoverPassRoute:
+        return MaterialPageRoute(builder: (_) => RecoverPassPage());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

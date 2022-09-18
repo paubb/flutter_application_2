@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/config/constants.dart';
 import 'package:flutter_application_2/models/Firebase/fire_auth.dart';
 
 class SigninPage extends StatefulWidget {
@@ -12,6 +13,7 @@ class _SigninPageState extends State<SigninPage> {
   final _email = TextEditingController();
   final _password = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  bool _isObscure = true;
   String _status;
 
   @override
@@ -79,6 +81,21 @@ class _SigninPageState extends State<SigninPage> {
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
+                                  suffixIcon: Padding(
+                                    padding: EdgeInsets.only(right: 10),
+                                    child: IconButton(
+                                      icon: Icon(_isObscure
+                                          ? Icons.visibility_off
+                                          : Icons.visibility),
+                                      onPressed: () {
+                                        setState(
+                                          () {
+                                            _isObscure = !_isObscure;
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ),
                                 ),
                                 validator: (value) {
                                   // Check if this field is empty
@@ -96,21 +113,12 @@ class _SigninPageState extends State<SigninPage> {
                               Align(
                                 alignment: Alignment.centerRight,
                                 child: TextButton(
-                                  onPressed: () async {
-                                    showDialog(
-                                      context: context,
-                                      barrierDismissible: false,
-                                      builder: (context) => Center(
-                                          child: CircularProgressIndicator()),
-                                    );
-                                    String status =
-                                        await FireAuth.resetPassword(
-                                            _email.text);
-                                    Navigator.pop(context);
-                                    _status = status;
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                        context, recoverPassRoute);
                                   },
                                   child: Text(
-                                    "Recovery Password",
+                                    "Recover Password",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -120,23 +128,25 @@ class _SigninPageState extends State<SigninPage> {
                               SizedBox(height: 15),
                               ElevatedButton(
                                 onPressed: () async {
-                                  showDialog(
-                                    context: context,
-                                    barrierDismissible: false,
-                                    builder: (context) => Center(
-                                        child: CircularProgressIndicator()),
-                                  );
+                                  if (_formKey.currentState.validate()) {
+                                    showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (context) => Center(
+                                          child: CircularProgressIndicator()),
+                                    );
 
-                                  String status =
-                                      await FireAuth.signInUsingEmailPassword(
-                                          _email.text, _password.text);
-                                  // Pop loading Dialog
-                                  Navigator.pop(context);
-                                  if (status == 'Success') {
-                                    // Pop Signin Page
+                                    String status =
+                                        await FireAuth.signInUsingEmailPassword(
+                                            _email.text.trim(), _password.text);
+                                    // Pop loading Dialog
                                     Navigator.pop(context);
-                                  } else {
-                                    _status = status;
+                                    if (status == 'Success') {
+                                      // Pop Signin Page
+                                      Navigator.pop(context);
+                                    } else {
+                                      _status = status;
+                                    }
                                   }
                                 },
                                 child: Text('Sign in'),
@@ -148,6 +158,25 @@ class _SigninPageState extends State<SigninPage> {
                                   padding: const EdgeInsets.all(15),
                                   minimumSize: const Size.fromHeight(55),
                                 ),
+                              ),
+                              SizedBox(height: 25),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('Not a member?'),
+                                  TextButton(
+                                    onPressed: () async {
+                                      Navigator.pushReplacementNamed(
+                                          context, signupRoute);
+                                    },
+                                    child: Text(
+                                      "Register Now",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
