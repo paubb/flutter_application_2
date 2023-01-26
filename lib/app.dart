@@ -8,21 +8,22 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle(
+    // Setting status bar
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.dark, // For Android dark icons
         statusBarBrightness: Brightness.light, // For iOS dark icons
       ),
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        // Custom Light Theme to assing app bar title to black
-        theme: lightTheme,
-        darkTheme: darkTheme,
-        debugShowCheckedModeBanner: false,
-        onGenerateRoute: Routing.generateRoute,
-        initialRoute: launchRoute,
-      ),
+    );
+    return MaterialApp(
+      title: 'Flutter Demo',
+      // Custom Light Theme to assing app bar title to black
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      debugShowCheckedModeBanner: false,
+      onGenerateRoute: Routing.generateRoute,
+      initialRoute: launchRoute,
     );
   }
 }
