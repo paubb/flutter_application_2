@@ -7,24 +7,23 @@ import 'package:flutter_application_2/views/signin.dart';
 import 'package:flutter_application_2/views/signup.dart';
 
 class Routing {
+  static final _routes = <String, WidgetBuilder>{
+    launchRoute: (_) => LaunchPage(),
+    homeRoute: (_) => RootPage(),
+    signupRoute: (_) => SignupPage(),
+    signinRoute: (_) => SigninPage(),
+    recoverPassRoute: (_) => RecoverPassPage(),
+  };
+
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    switch (settings.name) {
-      case launchRoute:
-        return MaterialPageRoute(builder: (_) => LaunchPage());
-      case homeRoute:
-        return MaterialPageRoute(builder: (_) => RootPage());
-      case signupRoute:
-        return MaterialPageRoute(builder: (_) => SignupPage());
-      case signinRoute:
-        return MaterialPageRoute(builder: (_) => SigninPage());
-      case recoverPassRoute:
-        return MaterialPageRoute(builder: (_) => RecoverPassPage());
-      default:
-        return MaterialPageRoute(
-            builder: (_) => Scaffold(
-                  body: Center(
-                      child: Text('No route defined for ${settings.name}')),
-                ));
+    final routeBuilder = _routes[settings.name];
+    if (routeBuilder != null) {
+      return MaterialPageRoute(builder: routeBuilder);
     }
+    return MaterialPageRoute(
+        builder: (_) => Scaffold(
+              body:
+                  Center(child: Text('No route defined for ${settings.name}')),
+            ));
   }
 }
