@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/models/Firebase/fire_auth.dart';
 
 class RecoverPassPage extends StatefulWidget {
-  RecoverPassPage({Key key}) : super(key: key);
+  const RecoverPassPage({Key key}) : super(key: key);
 
   @override
   _RecoverPassPageState createState() => _RecoverPassPageState();
@@ -25,7 +25,8 @@ class _RecoverPassPageState extends State<RecoverPassPage> {
               ),
               child: IntrinsicHeight(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
                   child: Center(
                     child: Form(
                       key: _formKey,
@@ -34,29 +35,30 @@ class _RecoverPassPageState extends State<RecoverPassPage> {
                           Expanded(
                             child: Column(
                               children: [
-                                SizedBox(height: 50),
-                                Icon(
+                                const SizedBox(height: 50),
+                                const Icon(
                                   Icons.lock_outline,
                                   size: 40,
                                 ),
-                                SizedBox(height: 25),
-                                Text(
+                                const SizedBox(height: 25),
+                                const Text(
                                   "Trouble logging in?",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 25),
                                   textAlign: TextAlign.center,
                                 ),
-                                SizedBox(height: 25),
+                                const SizedBox(height: 25),
                                 Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 15),
-                                  child: Text(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
+                                  child: const Text(
                                     "Enter your email adress and we'll send you a link to reset your password.",
                                     style: TextStyle(fontSize: 15),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
-                                SizedBox(height: 25),
+                                const SizedBox(height: 25),
                                 TextFormField(
                                   keyboardType: TextInputType.emailAddress,
                                   textInputAction: TextInputAction.done,
@@ -80,17 +82,17 @@ class _RecoverPassPageState extends State<RecoverPassPage> {
                                       AutovalidateMode.onUserInteraction,
                                   onTap: () => _status = null,
                                 ),
-                                SizedBox(height: 25),
+                                const SizedBox(height: 25),
                                 ElevatedButton(
                                   onPressed: () async {
                                     if (_formKey.currentState.validate()) {
                                       showDialog(
                                         context: context,
                                         barrierDismissible: false,
-                                        builder: (context) => Center(
+                                        builder: (context) => const Center(
                                             child: CircularProgressIndicator()),
                                       );
-                                      String status =
+                                      final String status =
                                           await FireAuth.resetPassword(
                                               _email.text.trim());
                                       Navigator.pop(context);
@@ -102,7 +104,7 @@ class _RecoverPassPageState extends State<RecoverPassPage> {
                                       });
                                     }
                                   },
-                                  child: Text('Send email'),
+                                  child: const Text('Send email'),
                                   style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(
@@ -112,13 +114,13 @@ class _RecoverPassPageState extends State<RecoverPassPage> {
                                     minimumSize: const Size.fromHeight(55),
                                   ),
                                 ),
-                                SizedBox(height: 15),
-                                Spacer(),
+                                const SizedBox(height: 15),
+                                const Spacer(),
                                 TextButton(
                                   onPressed: () async {
                                     Navigator.pop(context);
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     "Back to Login",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
