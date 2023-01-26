@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 class FireAuth {
+  // Instance of FirebaseAuth
   static final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // Function to initialize Firebase
@@ -10,13 +11,14 @@ class FireAuth {
     return firebaseApp;
   }
 
+  // Check if a user is logged in
   static Stream<User> checkLoggedUser() {
     return _auth.userChanges();
   }
 
+  // Register a user using email and password
   static Future<String> registerUsingEmailPassword(
       String name, String email, String password) async {
-    String status = 'Undefined Error.';
     try {
       final userCredential = await _auth.createUserWithEmailAndPassword(
         email: email,
@@ -25,72 +27,81 @@ class FireAuth {
       User user = userCredential.user;
       await user.updateDisplayName(name);
       await user.reload();
-      status = 'Success';
+      return 'Success';
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'email-already-in-use') {
-        status = 'The account already exists for that email.';
-      } else if (e.code == 'invalid-email') {
-        status = 'Invalid email provided.';
-      } else if (e.code == 'operation-not-allowed') {
-        status = 'Email/password accounts are not enabled.';
-      } else if (e.code == 'weak-password') {
-        status = 'The password provided is too weak.';
-      } else
-        status = 'An error occured. Please try again later.';
-      //status = e.code;
+      switch (e.code) {
+        case 'email-already-in-use':
+          return 'The account already exists for that email.';
+        case 'invalid-email':
+          return 'Invalid email provided.';
+        case 'operation-not-allowed':
+          return 'Email/password accounts are not enabled.';
+        case 'weak-password':
+          return 'The password provided is too weak.';
+        default:
+          return 'An error occured with the DB. Please try again later.';
+      }
     } catch (e) {
-      status = 'Unknown error.';
+      return 'Unknown error.';
     }
-    return status;
   }
 
+  // Sign in a user using email and password
   static Future<String> signInUsingEmailPassword(
       String email, String password) async {
-    String status = 'Undefined Error.';
     try {
+      // Attempt to sign in the user
       await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      status = 'Success';
+      // If successful, return the status message
+      return 'Success';
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'wrong-password') {
-        status = 'Wrong password provided.';
-      } else if (e.code == 'invalid-email') {
-        status = 'Invalid email provided.';
-      } else if (e.code == 'user-disabled') {
-        status = 'User corresponding to the given email has been disabled.';
-      } else if (e.code == 'user-not-found') {
-        status = 'No user found for that email.';
-      } else
-        status = 'An error occured. Please try again later.';
-      //status = e.code;
+      // Depending on the error code, return the status message
+      switch (e.code) {
+        case 'wrong-password':
+          return 'Wrong password provided.';
+          break;
+        case 'invalid-email':
+          return 'Invalid email provided.';
+          break;
+        case 'user-disabled':
+          return 'User corresponding to the given email has been disabled.';
+          break;
+        case 'user-not-found':
+          return 'No user found for that email.';
+          break;
+        default:
+          return 'An error occured with the DB. Please try again later.';
+      }
     } catch (e) {
-      status = 'Unknown error.';
+      // If an unexpected error occurs, return a status message
+      return 'Unknown error.';
     }
-    return status;
   }
 
+  // Sign out the current user
   static Future signOut() async {
     await _auth.signOut();
   }
 
+  // Send a email to reset password
   static Future<String> resetPassword(String email) async {
-    String status = 'Undefined Error.';
     try {
       await _auth.sendPasswordResetEmail(email: email);
-      status = 'Success, an email has been sent.';
+      return 'Success, an email has been sent.';
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'invalid-email') {
-        status = 'Invalid email provided.';
-      } else if (e.code == 'user-not-found') {
-        status = 'No user found for that email.';
-      } else
-        status = 'An error occured. Please try again later.';
-      //status = e.code;
+      switch (e.code) {
+        case 'invalid-email':
+          return 'Invalid email provided.';
+        case 'user-not-found':
+          return 'No user found for that email.';
+        default:
+          return 'An error occured with the DB. Please try again later.';
+      }
     } catch (e) {
-      status = 'Unknown error.';
+      return 'Unknown error.';
     }
-    return status;
   }
 }

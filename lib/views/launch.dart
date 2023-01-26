@@ -27,20 +27,17 @@ class _LaunchPageState extends State<LaunchPage> {
                     if (snapshot.hasData) {
                       return snapshot.data;
                     }
-                    return Text("Error!");
+                    return ErrorWidget(errorMessage: 'Error!');
                   } else if (snapshot.hasError) {
-                    return Text("ERROR: ${snapshot.error}");
+                    return ErrorWidget(
+                        errorMessage: 'ERROR: ${snapshot.error}');
                   }
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  return LoadingWidget();
                 },
               ),
             );
           }
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+          return LoadingWidget();
         },
       ),
     );
@@ -51,18 +48,43 @@ class _LaunchPageState extends State<LaunchPage> {
       stream: FireAuth.checkLoggedUser(),
       builder: (BuildContext context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+          return LoadingWidget();
         } else if (snapshot.hasError) {
-          return Center(
-            child: Text("Something went wrong!"),
-          );
+          return ErrorWidget(errorMessage: 'Something went wrong!');
         } else if (snapshot.hasData && (!snapshot.data.isAnonymous)) {
           return RootPage();
         }
         return WelcomePage();
       },
+    );
+  }
+}
+
+class LoadingWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(child: CircularProgressIndicator());
+  }
+}
+
+class ErrorWidget extends StatelessWidget {
+  final String errorMessage;
+
+  ErrorWidget({@required this.errorMessage});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(20),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Icon(Icons.error, size: 50, color: Colors.red),
+          SizedBox(height: 20),
+          Text(errorMessage),
+          SizedBox(height: 20),
+        ],
+      ),
     );
   }
 }
