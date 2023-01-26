@@ -24,7 +24,12 @@ class _LaunchPageState extends State<LaunchPage> {
                 future: _getLandingPage(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
-                    return snapshot.data;
+                    if (snapshot.hasData) {
+                      return snapshot.data;
+                    }
+                    return Text("Error!");
+                  } else if (snapshot.hasError) {
+                    return Text("ERROR: ${snapshot.error}");
                   }
                   return Center(
                     child: CircularProgressIndicator(),

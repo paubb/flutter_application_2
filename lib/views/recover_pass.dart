@@ -59,7 +59,7 @@ class _RecoverPassPageState extends State<RecoverPassPage> {
                                 SizedBox(height: 25),
                                 TextFormField(
                                   keyboardType: TextInputType.emailAddress,
-                                  textInputAction: TextInputAction.next,
+                                  textInputAction: TextInputAction.done,
                                   controller: _email,
                                   decoration: InputDecoration(
                                     hintText: "Enter your email",

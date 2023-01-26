@@ -27,8 +27,8 @@ class WelcomePage extends StatelessWidget {
                       style: TextStyle(fontSize: 15),
                     ),
                     const SizedBox(height: 50),
-                    Container(
-                      margin: EdgeInsets.only(left: 35, right: 35),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 30, right: 30),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -57,7 +57,7 @@ class SignUpViewButton extends StatelessWidget {
       onPressed: () async {
         Navigator.pushNamed(context, signupRoute);
       },
-      child: Text('Sign up'),
+      child: const Text('Sign up'),
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10), // <-- Radius
@@ -75,7 +75,7 @@ class SignInViewButton extends StatelessWidget {
       onPressed: () async {
         Navigator.pushNamed(context, signinRoute);
       },
-      child: Text('Sign in'),
+      child: const Text('Sign in'),
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10), // <-- Radius
