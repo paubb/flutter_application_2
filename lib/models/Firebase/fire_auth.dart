@@ -104,4 +104,8 @@ class FireAuth {
       return 'Unknown error.';
     }
   }
+
+  static String getUserInfo() {
+    return _auth.currentUser.displayName;
+  }
 }

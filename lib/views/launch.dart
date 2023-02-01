@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/components/widgets.dart';
 import 'package:flutter_application_2/views/welcome.dart';
 import 'package:flutter_application_2/views/root.dart';
 
@@ -27,9 +28,9 @@ class _LaunchPageState extends State<LaunchPage> {
                     if (snapshot.hasData) {
                       return snapshot.data;
                     }
-                    return ErrorWidget(errorMessage: 'Error!');
+                    return ErrorMessageWidget(errorMessage: 'Error!');
                   } else if (snapshot.hasError) {
-                    return ErrorWidget(
+                    return ErrorMessageWidget(
                         errorMessage: 'ERROR: ${snapshot.error}');
                   }
                   return LoadingWidget();
@@ -50,41 +51,12 @@ class _LaunchPageState extends State<LaunchPage> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return LoadingWidget();
         } else if (snapshot.hasError) {
-          return ErrorWidget(errorMessage: 'Something went wrong!');
+          return ErrorMessageWidget(errorMessage: 'Something went wrong!');
         } else if (snapshot.hasData && (!snapshot.data.isAnonymous)) {
           return RootPage();
         }
         return WelcomePage();
       },
-    );
-  }
-}
-
-class LoadingWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: CircularProgressIndicator());
-  }
-}
-
-class ErrorWidget extends StatelessWidget {
-  final String errorMessage;
-
-  ErrorWidget({@required this.errorMessage});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(20),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Icon(Icons.error, size: 50, color: Colors.red),
-          SizedBox(height: 20),
-          Text(errorMessage),
-          SizedBox(height: 20),
-        ],
-      ),
     );
   }
 }
