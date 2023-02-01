@@ -10,11 +10,18 @@ class SigninPage extends StatefulWidget {
 }
 
 class _SigninPageState extends State<SigninPage> {
-  final _email = TextEditingController();
-  final _password = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
   bool _isObscure = true;
   String _status;
+
+  @override
+  void dispose() {
+    _email.dispose();
+    _password.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,24 +44,25 @@ class _SigninPageState extends State<SigninPage> {
                           Expanded(
                             child: Column(
                               children: [
-                                SizedBox(height: 50),
-                                Text(
+                                const SizedBox(height: 50),
+                                const Text(
                                   "Hello Again!",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 25),
                                   textAlign: TextAlign.center,
                                 ),
-                                SizedBox(height: 25),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 15),
-                                  child: Text(
+                                const SizedBox(height: 25),
+                                const Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
+                                  child: const Text(
                                     "Wellcome back you've been missed!",
                                     style: TextStyle(fontSize: 15),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
-                                SizedBox(height: 25),
+                                const SizedBox(height: 25),
                                 TextFormField(
                                   keyboardType: TextInputType.emailAddress,
                                   textInputAction: TextInputAction.next,
@@ -78,7 +86,7 @@ class _SigninPageState extends State<SigninPage> {
                                       AutovalidateMode.onUserInteraction,
                                   onTap: () => _status = null,
                                 ),
-                                SizedBox(height: 25),
+                                const SizedBox(height: 25),
                                 TextFormField(
                                   textInputAction: TextInputAction.done,
                                   obscureText: _isObscure,
@@ -117,7 +125,7 @@ class _SigninPageState extends State<SigninPage> {
                                       AutovalidateMode.onUserInteraction,
                                   onTap: () => _status = null,
                                 ),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                                 Align(
                                   alignment: Alignment.centerRight,
                                   child: TextButton(
@@ -125,7 +133,7 @@ class _SigninPageState extends State<SigninPage> {
                                       Navigator.pushNamed(
                                           context, recoverPassRoute);
                                     },
-                                    child: Text(
+                                    child: const Text(
                                       "Recover Password",
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -133,7 +141,7 @@ class _SigninPageState extends State<SigninPage> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: 15),
+                                const SizedBox(height: 15),
                                 ElevatedButton(
                                   onPressed: () async {
                                     if (_formKey.currentState.validate()) {
@@ -163,7 +171,7 @@ class _SigninPageState extends State<SigninPage> {
                                       }
                                     }
                                   },
-                                  child: Text('Sign in'),
+                                  child: const Text('Sign in'),
                                   style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(
@@ -173,20 +181,20 @@ class _SigninPageState extends State<SigninPage> {
                                     minimumSize: const Size.fromHeight(55),
                                   ),
                                 ),
-                                SizedBox(height: 15),
-                                Spacer(),
+                                const SizedBox(height: 15),
+                                const Spacer(),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text('Not a member?'),
+                                    const Text('Not a member?'),
                                     TextButton(
                                       onPressed: () async {
                                         Navigator.pushReplacementNamed(
                                             context, signupRoute);
                                       },
-                                      child: Text(
+                                      child: const Text(
                                         "Register Now",
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),

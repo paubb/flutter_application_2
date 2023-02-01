@@ -37,7 +37,8 @@ class _SignupPageState extends State<SignupPage> {
               ),
               child: IntrinsicHeight(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
                   child: Center(
                     child: Form(
                       key: _formKey,
@@ -46,24 +47,25 @@ class _SignupPageState extends State<SignupPage> {
                           Expanded(
                             child: Column(
                               children: [
-                                SizedBox(height: 50),
-                                Text(
+                                const SizedBox(height: 50),
+                                const Text(
                                   "Hello!",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 25),
                                   textAlign: TextAlign.center,
                                 ),
-                                SizedBox(height: 25),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 15),
-                                  child: Text(
+                                const SizedBox(height: 25),
+                                const Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
+                                  child: const Text(
                                     "Create an account and start using the application",
                                     style: TextStyle(fontSize: 15),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
-                                SizedBox(height: 25),
+                                const SizedBox(height: 25),
                                 TextFormField(
                                   textInputAction: TextInputAction.next,
                                   controller: _username,
@@ -84,7 +86,7 @@ class _SignupPageState extends State<SignupPage> {
                                       AutovalidateMode.onUserInteraction,
                                   onTap: () => _status = null,
                                 ),
-                                SizedBox(height: 25),
+                                const SizedBox(height: 25),
                                 TextFormField(
                                   keyboardType: TextInputType.emailAddress,
                                   textInputAction: TextInputAction.next,
@@ -108,7 +110,7 @@ class _SignupPageState extends State<SignupPage> {
                                       AutovalidateMode.onUserInteraction,
                                   onTap: () => _status = null,
                                 ),
-                                SizedBox(height: 25),
+                                const SizedBox(height: 25),
                                 TextFormField(
                                   textInputAction: TextInputAction.done,
                                   obscureText: _isObscure,
@@ -147,7 +149,7 @@ class _SignupPageState extends State<SignupPage> {
                                       AutovalidateMode.onUserInteraction,
                                   onTap: () => _status = null,
                                 ),
-                                SizedBox(height: 25),
+                                const SizedBox(height: 25),
                                 ElevatedButton(
                                   onPressed: () async {
                                     if (_formKey.currentState.validate()) {
@@ -177,7 +179,7 @@ class _SignupPageState extends State<SignupPage> {
                                       }
                                     }
                                   },
-                                  child: Text('Sign up'),
+                                  child: const Text('Sign up'),
                                   style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(
@@ -187,19 +189,19 @@ class _SignupPageState extends State<SignupPage> {
                                     minimumSize: const Size.fromHeight(55),
                                   ),
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text('Already have an account?'),
+                                    const Text('Already have an account?'),
                                     TextButton(
                                       onPressed: () async {
                                         Navigator.pushReplacementNamed(
                                             context, signinRoute);
                                       },
-                                      child: Text(
+                                      child: const Text(
                                         "Sign in",
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
