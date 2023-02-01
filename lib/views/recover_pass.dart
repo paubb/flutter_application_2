@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/models/Firebase/fire_auth.dart';
+import 'package:flutter_application_2/models/Firebase/auth_service.dart';
 
 class RecoverPassPage extends StatefulWidget {
   const RecoverPassPage({Key key}) : super(key: key);
@@ -93,8 +93,9 @@ class _RecoverPassPageState extends State<RecoverPassPage> {
                                             child: CircularProgressIndicator()),
                                       );
                                       final String status =
-                                          await FireAuth.resetPassword(
-                                              _email.text.trim());
+                                          await FirebaseAuthService
+                                              .resetPassword(
+                                                  _email.text.trim());
                                       Navigator.pop(context);
                                       // Unfocus text input
                                       FocusManager.instance.primaryFocus

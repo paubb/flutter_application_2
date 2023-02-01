@@ -1,19 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 
-class FireAuth {
+class FirebaseAuthService {
   // Instance of FirebaseAuth
   static final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  // Function to initialize Firebase
-  static Future<FirebaseApp> initializeFirebase() async {
-    FirebaseApp firebaseApp = await Firebase.initializeApp();
-    return firebaseApp;
-  }
-
-  // Check if a user is logged in
-  static Stream<User> checkLoggedUser() {
-    return _auth.userChanges();
+  static Stream<User> getAuthStateChanges() {
+    return _auth.authStateChanges();
   }
 
   // Register a user using email and password

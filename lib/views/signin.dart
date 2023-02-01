@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/config/constants.dart';
-import 'package:flutter_application_2/models/Firebase/fire_auth.dart';
+import 'package:flutter_application_2/models/Firebase/auth_service.dart';
 
 class SigninPage extends StatefulWidget {
   SigninPage({Key key}) : super(key: key);
@@ -144,7 +144,7 @@ class _SigninPageState extends State<SigninPage> {
                                             child: CircularProgressIndicator()),
                                       );
 
-                                      String status = await FireAuth
+                                      String status = await FirebaseAuthService
                                           .signInUsingEmailPassword(
                                               _email.text.trim(),
                                               _password.text);

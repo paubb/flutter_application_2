@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/config/constants.dart';
-import 'package:flutter_application_2/models/Firebase/fire_auth.dart';
+import 'package:flutter_application_2/models/Firebase/auth_service.dart';
 
 class SignupPage extends StatefulWidget {
   SignupPage({Key key}) : super(key: key);
@@ -10,12 +10,20 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-  final _username = TextEditingController();
-  final _email = TextEditingController();
-  final _password = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _username = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
   bool _isObscure = true;
   String _status;
+
+  @override
+  void dispose() {
+    _username.dispose();
+    _email.dispose();
+    _password.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -149,7 +157,7 @@ class _SignupPageState extends State<SignupPage> {
                                         builder: (context) => Center(
                                             child: CircularProgressIndicator()),
                                       );
-                                      String status = await FireAuth
+                                      String status = await FirebaseAuthService
                                           .registerUsingEmailPassword(
                                               _username.text.trim(),
                                               _email.text.trim(),
@@ -179,7 +187,6 @@ class _SignupPageState extends State<SignupPage> {
                                     minimumSize: const Size.fromHeight(55),
                                   ),
                                 ),
-                                SizedBox(height: 15),
                                 Spacer(),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,

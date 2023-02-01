@@ -32,9 +32,15 @@ class WelcomePage extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Expanded(child: SignUpViewButton()),
+                          Expanded(
+                            child: SignInOrSignUpButton(
+                                text: 'Sign up', route: signupRoute),
+                          ),
                           const SizedBox(width: 10),
-                          Expanded(child: SignInViewButton()),
+                          Expanded(
+                            child: SignInOrSignUpButton(
+                                text: 'Sign in', route: signinRoute),
+                          ),
                         ],
                       ),
                     ),
@@ -50,32 +56,19 @@ class WelcomePage extends StatelessWidget {
   }
 }
 
-class SignUpViewButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () async {
-        Navigator.pushNamed(context, signupRoute);
-      },
-      child: const Text('Sign up'),
-      style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10), // <-- Radius
-        ),
-        padding: const EdgeInsets.all(15),
-      ),
-    );
-  }
-}
+class SignInOrSignUpButton extends StatelessWidget {
+  final String text;
+  final String route;
 
-class SignInViewButton extends StatelessWidget {
+  SignInOrSignUpButton({@required this.text, @required this.route});
+
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () async {
-        Navigator.pushNamed(context, signinRoute);
+        Navigator.pushNamed(context, route);
       },
-      child: const Text('Sign in'),
+      child: Text(text),
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10), // <-- Radius

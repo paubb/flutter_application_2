@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/components/widgets.dart';
 
-import '../../models/Firebase/fire_auth.dart';
+import 'package:flutter_application_2/models/Firebase/auth_service.dart';
 
 class FourthPage extends StatefulWidget {
   FourthPage() : super();
@@ -57,7 +57,7 @@ class _FourthPageState extends State<FourthPage> {
                     ),
                     SizedBox(height: 10.0),
                     Text(
-                      FireAuth.getUserInfo(),
+                      FirebaseAuthService.getUserInfo(),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -120,7 +120,7 @@ class _FourthPageState extends State<FourthPage> {
                         setState(() {
                           isLoading = true;
                         });
-                        await FireAuth.signOut();
+                        await FirebaseAuthService.signOut();
                       },
                       child: Icon(
                         Icons.exit_to_app,

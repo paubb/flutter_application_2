@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       ),
     );
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: appTitle,
       // Custom Light Theme to assing app bar title to black
       theme: lightTheme,
       darkTheme: darkTheme,
