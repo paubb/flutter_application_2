@@ -100,4 +100,13 @@ class FirebaseAuthService {
   static String getUserInfo() {
     return _auth.currentUser.displayName;
   }
+
+  static Future<String> updateUsername(String name) async {
+    try {
+      await _auth.currentUser.updateDisplayName(name);
+      return 'Success, display name updated.';
+    } catch (e) {
+      return 'Unknown error.';
+    }
+  }
 }

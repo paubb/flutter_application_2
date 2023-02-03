@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/components/widgets.dart';
+import 'package:flutter_application_2/config/constants.dart';
 
 import 'package:flutter_application_2/models/Firebase/auth_service.dart';
+import 'package:flutter_application_2/models/profile.dart';
 
 class FourthPage extends StatefulWidget {
   FourthPage() : super();
@@ -12,6 +14,7 @@ class FourthPage extends StatefulWidget {
 
 class _FourthPageState extends State<FourthPage> {
   bool isLoading = false;
+  String _name = FirebaseAuthService.getUserInfo();
 
   @override
   Widget build(BuildContext context) {
@@ -38,15 +41,15 @@ class _FourthPageState extends State<FourthPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 ProfileStatsWidget(
-                                  number: '000',
+                                  number: '6',
                                   text: 'Posts',
                                 ),
                                 ProfileStatsWidget(
-                                  number: '000',
+                                  number: '95',
                                   text: 'Followers',
                                 ),
                                 ProfileStatsWidget(
-                                  number: '000',
+                                  number: '97',
                                   text: 'Following',
                                 ),
                               ],
@@ -57,7 +60,7 @@ class _FourthPageState extends State<FourthPage> {
                     ),
                     SizedBox(height: 10.0),
                     Text(
-                      FirebaseAuthService.getUserInfo(),
+                      _name,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -79,7 +82,20 @@ class _FourthPageState extends State<FourthPage> {
                   children: [
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          final _newName = await Navigator.pushNamed(
+                            context,
+                            editProfileRoute,
+                            arguments: Profile(
+                              _name,
+                            ),
+                          );
+                          if (_newName != null) {
+                            setState(() {
+                              _name = _newName;
+                            });
+                          }
+                        },
                         child: Text(
                           'Edit profile',
                           style: TextStyle(color: Colors.white),

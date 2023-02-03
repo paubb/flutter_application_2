@@ -72,7 +72,7 @@ class _SignupPageState extends State<SignupPage> {
                             ),
                             validator: (value) {
                               // Check if this field is empty
-                              if (value == null || value.isEmpty) {
+                              if (value == null || value.trim().isEmpty) {
                                 return 'A username is required';
                               }
                               return null;
